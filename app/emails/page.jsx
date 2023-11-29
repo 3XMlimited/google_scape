@@ -24,7 +24,7 @@ const Page = () => {
     let result = Array.from(new Set(emails));
     let results = [];
     result.map((r) => {
-      results.push({ email: r });
+      results.push({ email: r.email });
     });
     exportFromJSON({ data: results, fileName, exportType });
   };
