@@ -16,6 +16,12 @@ const Navbar = () => {
           <li className="text-[16px] leading-[22px] tracking-[0.25%] !font-normal">
             <Link href="/emails">Email Collect</Link>
           </li>
+
+          <li className="text-[16px] leading-[22px] tracking-[0.25%] text-[#cb5382] !font-normal">
+            <Link href="https://youtube-scrape-3xm.vercel.app/" target="_blank">
+              Old Youtube Dashboard
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
