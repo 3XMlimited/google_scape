@@ -21,16 +21,19 @@ import {
 } from "@/components/ui/table";
 
 let platform = ["youtube", "facebook", "instagram", "twitter", "tiktok"];
-let mails = ["gmail.com", "icloud.com"];
+let mails = [
+  "gmail.com",
+  "icloud.com",
+  "me.com",
+  "outlook.com",
+  "hotmail.com",
+  "mail.com",
+  "live.com",
+  "msn.com",
+  "yahoo.com",
+  "ymail.com",
+];
 
-//  "me.com",
-//   "outlook.com",
-//   "hotmail.com",
-//   "mail.com",
-//   "live.com",
-//   "msn.com",
-//   "yahoo.com",
-//   "ymail.com",
 const Page = () => {
   // const [data, setData] = useState(fakeData);
   const [data, setData] = useState([]);
