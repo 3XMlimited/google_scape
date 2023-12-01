@@ -19,6 +19,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+let platform = ["youtube", "facebook", "instagram", "twitter", "tiktok"];
+let mails = ["gmail.com", "icloud.com"];
+
+//  "me.com",
+//   "outlook.com",
+//   "hotmail.com",
+//   "mail.com",
+//   "live.com",
+//   "msn.com",
+//   "yahoo.com",
+//   "ymail.com",
 const Page = () => {
   // const [data, setData] = useState(fakeData);
   const [data, setData] = useState([]);
@@ -29,6 +41,7 @@ const Page = () => {
     mail: "gmail.com",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [version, setVersion] = useState(false);
 
   // useEffect(() => {
   // let channels = localStorage.getItem("channels");
@@ -57,7 +70,6 @@ const Page = () => {
       } else {
         memoryEmails = forLocalEmails;
       }
-
       localStorage.setItem("emails", JSON.stringify(memoryEmails));
     }
   }, [data]);
@@ -97,6 +109,35 @@ const Page = () => {
     }
   };
 
+  const fetchGoogleAllSite = async (search) => {
+    let results = [];
+    for (let index = 0; index < platform.length; index++) {
+      const site = platform[index];
+      console.log("site", site);
+      for (let i = 0; i < mails.length; i++) {
+        const mail = mails[i];
+        let value = `site:${site}.com "${search}" "${mail}" `;
+        try {
+          const response = await fetch("/api/google", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ search: value }),
+          });
+          const result = await response.json();
+          // const result = data.data.results;
+          if (result.data.results) {
+            results.push(...result.data.results);
+          }
+        } catch (error) {
+          console.log("error", error);
+        }
+      }
+    }
+    return results;
+  };
+
   // const clearChannel = () => {
   //   localStorage.removeItem("channels");
   //   setChannelList([]);
@@ -108,22 +149,19 @@ const Page = () => {
           <h1 className="sm:text-[64px] sm:leading-[67.2px] sm:font-bold font-bold text-[48px] leading-[50.4px] text-center mb-6">
             Google Search Scrape
           </h1>
+
           <SearchForm
             setData={setData}
             fetchGoogle={fetchGoogle}
+            fetchGoogleAllSite={fetchGoogleAllSite}
             search={search}
             setSearch={setSearch}
+            platform={platform}
+            version={version}
+            setVersion={setVersion}
             // setChannelList={setChannelList}
           />
         </div>
-        {/* <div className="flex justify-center items-center w-full gap-x-3">
-          <p className=" py-4 text-black-400 font-bold">
-            Channel: {channelList.length}
-          </p>
-          <Button variant="destructive" onClick={clearChannel}>
-            Clear Channel{" "}
-          </Button>
-        </div> */}
 
         {data && data.length > 0 && (
           <>
